@@ -9,7 +9,7 @@
       </div>
       <div class="listbox" v-else>
         <div v-if="listInfo.length" class="infobox">
-          <!-- <my-curriculum-item v-for="(items, index) in listInfo" :key="index" :dataSource="items"></my-curriculum-item> -->
+          <my-curriculum-item v-for="(items, index) in listInfo" :key="index" :dataSource="items"></my-curriculum-item>
         </div>
         <info-null v-else :name="3"></info-null>
       </div>
