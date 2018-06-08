@@ -102,7 +102,7 @@ export default {
             showlist1.push(this.list1[j])
           }
         } else {
-          console.log(1)
+          // console.log(1)
           showlist1 = this.list1
         }
         return showlist1

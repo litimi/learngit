@@ -24,11 +24,12 @@
       </div>
       <div class="colStartNoWarpStart">
         <h2>时间地点</h2>
-        <span v-for="(item, index) in coursedetails.sksjdd" :key="index">星期{{item.week}}第{{item.section}}节{{item.cdmc}}</span>
+        <span v-for="(item, index) in coursedetails.sksjdd" :key="index">星期{{item.week|capitalize}}第{{item.section}}节{{item.cdmc}}</span>
       </div>
       <div class="colStartNoWarpStart">
         <h2>课程简介</h2>
-        <p></p>
+        <p v-if='coursedetails.kcjj'>{{coursedetails.kcjj}}</p>
+        <p v-else>暂时没有课程简介哦~</p>
       </div>
       <div class="colStartNoWarpStart">
         <h2>性别限制</h2>
@@ -53,13 +54,29 @@ export default {
   data () {
     return {
       coursedetails: {},
-      xh: JSON.parse(localStorage.getItem('susercode'))
+      xh: null,
+      xqdm: null,
+      xndm: null,
+      xxdm: null
     }
   },
   components: {
   },
   created () {
+  },
+  mounted () {
+    this.xh = sessionStorage.getItem('xh')
+    this.xqdm = sessionStorage.getItem('xqdm')
+    this.xndm = sessionStorage.getItem('xndm')
+    this.xxdm = sessionStorage.getItem('xxdm')
     this.getcoursedetails()
+  },
+  filters: {
+    // 页面数据处理
+    capitalize: function (value) {
+      const arr = ['', '一', '二', '三', '四', '五', '六', '日']
+      return arr[value]
+    }
   },
   methods: {
     signup (tag) {
@@ -77,10 +94,10 @@ export default {
     postselectcourse (tag) {
       let XkxtXsxk = {
         kcdm: tag.kcdm,
-        xh: this.xh
-        // xndm: '2017-2018',
-        // xqdm: '02',
-        // xxdm: '1755'
+        xh: this.xh,
+        xndm: this.xndm,
+        xqdm: this.xqdm,
+        xxdm: this.xxdm
       }
       PostSelectCourse(XkxtXsxk).then(data => {
         // console.log(data)
@@ -103,13 +120,13 @@ export default {
     getcoursedetails () {
       let params = {
         xh: this.xh,
-        // xxdm: '1755',
+        xxdm: this.xxdm,
         kcdm: this.$route.query.courseId
       }
       GetCourseDetails(params).then(data => {
         if (data.status === 200) {
           this.coursedetails = data.data
-          console.log(this.coursedetails)
+          // console.log(this.coursedetails)
         }
       })
     }

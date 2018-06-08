@@ -50,7 +50,7 @@ export default {
         // xxdm: 1755
       }
       GetCoursesType(params).then(data => {
-        console.log(data)
+        // console.log(data)
         this.slotslist = data.data
       })
     },
@@ -61,7 +61,7 @@ export default {
     },
     // 确认
     handleConfirm () {
-      console.log(this.$refs.picker.getValues()[0].lbmc)
+      // console.log(this.$refs.picker.getValues()[0].lbmc)
       this.coursetype = this.$refs.picker.getValues()[0].lbmc
       this.popupVisible = false
     },

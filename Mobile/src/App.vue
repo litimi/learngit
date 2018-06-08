@@ -1,11 +1,5 @@
 <template>
   <div id="app">
-    <!-- <mt-header fixed :title="title" style="background-color: #000000;height: 5rem">
-      <router-link to="/" slot="left">
-        <mt-button icon="back">返回</mt-button>
-      </router-link>
-      <mt-button icon="more" slot="right"></mt-button>
-    </mt-header> -->
     <lazy-render style="width:100%;height:100%">
       <keep-alive>
         <router-view/>
@@ -19,7 +13,6 @@ export default {
   name: 'App',
   data () {
     return {
-      title: '选课列表'
     }
   }
 }

@@ -21,10 +21,10 @@ module.exports = {
       },
       '/api':{
         //target:"http://192.168.0.91:6003",//设置你调用的接口域名和端口号
-        target:"http://192.168.0.236:6003",
+        target:"http://192.168.0.193:8765",
         changeOrigin:true,
         pathRewrite:{
-          '^/api':''
+          '^/api':'/api'
         }
       }
     },
@@ -67,7 +67,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

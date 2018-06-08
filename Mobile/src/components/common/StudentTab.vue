@@ -131,15 +131,18 @@ export default{
       background-color: #6bc4f8;
       position: absolute;
       bottom: 0;
-      left: 30%;
+      left: 35%;
     }
   }
   .searchBox{
     z-index: 9;
     width: 100%;
-    height: 50px;
+    height: 100%;
     background-color: white;
-    /* box-shadow: 0px 3px 10px 1px #dbdbdb; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     .search{
       width: 80%;
       height: 2.5rem;
@@ -153,10 +156,6 @@ export default{
         img{
           width: 1.8rem;
           height: 1.8rem;
-          /* left: 1rem; */
-          /* position: absolute; */
-          /* top: 50%; */
-          /* transform: translateY(-50%); */
         }
       }
       .delete{
@@ -184,10 +183,10 @@ export default{
     p{
       font-size: 1.4rem;
       color: #34acf1;
-      /* opacity: 0; */
       transition: all .5s ease-in-out;
       width: 3rem;
       text-align: right;
+      margin-left: 1rem;
       &.show{
         opacity: 1;
       }

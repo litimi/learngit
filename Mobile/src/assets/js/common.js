@@ -32,7 +32,9 @@ const Load = (option) => {
   }
   option.headers && (headers.headers = option.headers)
   return new Promise((resolve, reject) => {
+    console.log(1)
     Vue.http[option.type](option.url, params, headers).then(response => {
+      console.log(2)
       resolve(response.body)
     }, response => {
       reject(response)
@@ -259,6 +261,14 @@ function StripScript (s) {
   rs = rs.replace(/\s*/g, '')
   return rs
 }
+
+// 获取url用户名和密码
+function getQueryId (name) {
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+  var r = window.location.search.substr(1).match(reg)
+  if (r != null) return unescape(r[2])
+  return ''
+}
 /**
  * 获取用户信息，userInfo
 */
@@ -286,5 +296,5 @@ export {
   Load, GetUrlParams, GetStandardList, DeleteMoreFields, 
   FieldsToString, FieldsToJson, IsJson, 
   GetCurrentDate, GetCurrentDateTime, StripScript, GetCurrentMonthFirst,
-  GetYear
+  GetYear, getQueryId
 }

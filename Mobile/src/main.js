@@ -12,7 +12,7 @@ import 'mint-ui/lib/style.css'
 import './assets/css/common.css'
 import VueLazyload from 'vue-lazyload'
 import LazyRender from 'vue-lazy-render'
-import { GetToken, GetUserInfo, GetBaseInfo } from './assets/API/api'
+// import { GetToken, GetUserInfo, GetBaseInfo } from './assets/API/api'
 //  GetUserInfo, GetBaseInfo
 Vue.config.productionTip = false
 
@@ -26,75 +26,19 @@ Vue.use(VueLazyload, {
 Vue.use(MintUI)
 
 FastClick.attach(document.body)
-// const router = new VueRouter({
-//   routers
-// })
-// let xxdm = JSON.parse(localStorage.getItem('xxdm'))
-// let tokens = JSON.parse(localStorage.getItem('token'))
-const userInfo = {
-  username: '175530180227131304636',
-  password: '{MD5}7f84a617cae9dadec8c2c148af02219a'
-}
-
-// function getQueryId (name) {
-//   var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
-//   var r = window.location.search.substr(1).match(reg)
-//   if (r != null) return unescape(r[2])
-//   return ''
-// }
-// userInfo.username = getQueryId('username')
-// userInfo.password = getQueryId('password')
-store.dispatch('setUsername', userInfo.username)
-store.dispatch('setPassword', userInfo.username)
-GetToken(userInfo).then(data => {
-  console.log(data)
-  var token = ''
-  store.dispatch('setToken', data.data)
-  if (data.data !== JSON.parse(localStorage.getItem('token'))) {
-    console.log(2)
-    token = data.data
-    localStorage.setItem('token', JSON.stringify(data.data))
+Vue.http.interceptors.push((request, next) => {
+  // 登录成功后将后台返回的TOKEN在本地存下来,每次请求从sessionStorage中拿到存储的TOKEN值
+  let TOKEN = localStorage.getItem('token')
+  // let TOKEN = store.state.token
+  if (TOKEN) {
+    // alert(1)
+    // 如果请求时TOKEN存在,就为每次请求的headers中设置好TOKEN,后台根据headers中的TOKEN判断是否放行
+    request.headers.set('Authorization', TOKEN)
   }
-  if (token) {
-    GetUserInfo({token: token}).then(data => {
-      store.dispatch('setLoginInfo', data)
-      localStorage.setItem('xxdm', JSON.stringify(data.xxdm))
-      localStorage.setItem('username', JSON.stringify(data.name))
-      GetBaseInfo({xxdm: data.xxdm, token: token}).then(data => {
-        store.dispatch('setBaseInfo', data)
-        localStorage.setItem('baseinfo', JSON.stringify(data))
-      })
-      if (data.type === 4) {
-        localStorage.setItem('susercode', data.usercode)
-        router.push({path: '/coursesList'})
-      } else if (data.type === 3) {
-        localStorage.setItem('tusercode', data.usercode)
-        router.push({path: '/myCurriculum'})
-      } else {
-      }
-    })
-  } else {
-    router.push({path: '/*'})
-  }
+  next((response) => {
+    return response
+  })
 })
-
-// router.beforeEach(function (to, from, next) {
-//   console.log(store.state)
-//   if (store.state.token) {
-//     console.log(1)
-//   }
-//   const nextRoute = ['classdetail', 'myCurriculum']
-//   if (nextRoute.indexOf(to.name) >= 0) {
-//     if (store.state.token) {
-//       if (store.state.baseInfo.type === 3) {
-//         next()
-//       } else if (store.state.baseInfo.type === 4) {
-//         router.push({name: 'myCurriculum'})
-//       }
-//     }
-//   }
-//   next()
-// })
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

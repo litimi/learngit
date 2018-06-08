@@ -37,19 +37,26 @@ export default {
       hotlist: [],
       show: false,
       isinfo: false,
-      zgh: JSON.parse(localStorage.getItem('tusercode'))
+      zgh: null,
+      xxdm: null,
+      xqdm: null,
+      xndm: null
     }
   },
   mounted () {
+    this.xxdm = this.$route.query.xxdm
+    this.xqdm = this.$route.query.xqdm
+    this.xndm = this.$route.query.xndm
+    this.zgh = this.$route.query.zgh
     this.getcourseslist()
   },
   methods: {
     // 获取教师课程列表
     getcourseslist () {
       let params = {
-        // xxdm: '1755',
-        // xndm: '2017-2018',
-        // xqdm: '02',
+        xxdm: this.xxdm,
+        xndm: this.xndm,
+        xqdm: this.xqdm,
         zgh: this.zgh
       }
       GetCoursesList(params).then(data => {
@@ -59,9 +66,9 @@ export default {
     // 获取热度报告
     gethotreport () {
       let params = {
-        // xxdm: '1755',
-        // xndm: '2017-2018',
-        // xqdm: '02',
+        xxdm: this.xxdm,
+        xndm: this.xndm,
+        xqdm: this.xqdm,
         zgh: this.zgh
       }
       GetHotReport(params).then(data => {
@@ -77,7 +84,6 @@ export default {
         this.show = true
         this.gethotreport()
       }
-      // console.log(index)
     }
   }
 }

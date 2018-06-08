@@ -4,11 +4,11 @@ import { Load } from '../js/common'
 
 const Host = HOST
 const hosts = Hosts
-const xxdm = JSON.parse(localStorage.getItem('xxdm'))
-const base = JSON.parse(localStorage.getItem('baseinfo'))
-const xh = JSON.parse(localStorage.getItem('susercode'))
-const xqdm = base.xq
-const xndm = base.xn
+// const xxdm = JSON.parse(localStorage.getItem('xxdm'))
+// const base = JSON.parse(localStorage.getItem('baseinfo'))
+// const xh = JSON.parse(localStorage.getItem('susercode'))
+// const xqdm = base.xq
+// const xndm = base.xn
 // 获取token
 const GetToken = (params) => {
   const options = {
@@ -54,13 +54,13 @@ const GetBaseInfo = (params) => {
 
 // 获取可选课程列表
 const GetListOptionalCourse = (params) => {
-  params.xh = xh
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xh = xh
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/listOptionalCourse',
+    url: '/mobile/xkxt/listOptionalCourse',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -72,13 +72,13 @@ const GetListOptionalCourse = (params) => {
 
 // 获取已选课程列表
 const GetListSelectedCourse = (params) => {
-  params.xh = xh
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xh = xh
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/listSelectedCourse',
+    url: '/mobile/xkxt/listSelectedCourse',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -90,13 +90,13 @@ const GetListSelectedCourse = (params) => {
 
 // 获取课程详情
 const GetCourseDetails = (params) => {
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xh = xh
-  params.xxdm = xxdm
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xh = xh
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/courseDetail',
+    url: '/mobile/xkxt/courseDetail',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -108,12 +108,12 @@ const GetCourseDetails = (params) => {
 
 // 获取课程类型
 const GetCoursesType = (params) => {
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/courseTypes',
+    url: '/mobile/xkxt/courseTypes',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -125,13 +125,13 @@ const GetCoursesType = (params) => {
 
 // 更新课程点击量
 const PostCourseClick = (params) => {
-  params.xh = xh
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xh = xh
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/coursepv',
+    url: '/mobile/xkxt/coursepv',
     type: 'put',
     params: params
   }
@@ -144,13 +144,13 @@ const PostCourseClick = (params) => {
 
 // 选课
 const PostSelectCourse = (params) => {
-  params.xh = xh
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xh = xh
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/selectCourse',
+    url: '/mobile/xkxt/selectCourse',
     type: 'post',
     params: params
   }
@@ -163,13 +163,13 @@ const PostSelectCourse = (params) => {
 
 // 退选选课
 const PutUnSelectCourse = (params) => {
-  params.xh = xh
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xh = xh
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/unSelectCourse',
+    url: '/mobile/xkxt/unSelectCourse',
     type: 'put',
     params: params
   }
@@ -182,12 +182,12 @@ const PutUnSelectCourse = (params) => {
 
 // 获取选课规则
 const GetSelectCourseRule = (params) => {
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/selectCourseRule',
+    url: '/mobile/xkxt/selectCourseRule',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -199,12 +199,12 @@ const GetSelectCourseRule = (params) => {
 
 // 获取教师课程列表
 const GetCoursesList = (params) => {
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/listTeacherCourse',
+    url: '/mobile/xkxt/listTeacherCourse',
     params: params
   }
   return new Promise((resolve, reject) => {
@@ -216,12 +216,12 @@ const GetCoursesList = (params) => {
 
 // 获取热度报告
 const GetHotReport = (params) => {
-  params.xqdm = xqdm
-  params.xndm = xndm
-  params.xxdm = xxdm
+  // params.xqdm = xqdm
+  // params.xndm = xndm
+  // params.xxdm = xxdm
   const options = {
     host: Host,
-    url: '/xkxt/hotReport',
+    url: '/mobile/xkxt/hotReport',
     params: params
   }
   return new Promise((resolve, reject) => {

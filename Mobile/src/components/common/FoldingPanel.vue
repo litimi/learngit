@@ -39,7 +39,11 @@ export default {
   name: 'FoldingPanel',
   data () {
     return {
-      open: false
+      open: false,
+      xh: null,
+      xqdm: null,
+      xndm: null,
+      xxdm: null
     }
   },
   props: {
@@ -55,16 +59,20 @@ export default {
     }
   },
   mounted () {
+    this.xh = sessionStorage.getItem('xh')
+    this.xqdm = sessionStorage.getItem('xqdm')
+    this.xndm = sessionStorage.getItem('xndm')
+    this.xxdm = sessionStorage.getItem('xxdm')
   },
   methods: {
     // 更新课程点击量
     updateclick (courseId) {
       let params = {
         kcdm: courseId,
-        xh: '30180227131304611',
-        xndm: '2017-2018',
-        xqdm: '02',
-        xxdm: '1755'
+        xh: this.xh,
+        xndm: this.xndm,
+        xqdm: this.xqdm,
+        xxdm: this.xxdm
       }
       PostCourseClick(params).then(data => {
         // console.log(data)

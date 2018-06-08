@@ -1,6 +1,6 @@
 <template>
   <div class="student">
-    <!-- <img src="../../assets/images/back.png" alt="" class="back"> -->
+    <!-- 头部卡片beg -->
     <div class="topcard">
       <div class="header">
         <img src="../../assets/images/Leaf.png" alt="" class="decorate">
@@ -15,6 +15,8 @@
         </div>
       </ul>
     </div>
+    <!-- 头部卡片end -->
+    <!-- 内容区包含导航搜索beg -->
     <div class="tab" ref="tab" :class="tabfixed === true? 'isfixed' : ''">
       <student-tab :dataSource="tab" @choose="choose" @search="search" @cancel="cancel"></student-tab>
     </div>
@@ -69,7 +71,7 @@ import StudentTab from '../common/StudentTab'
 import { GetListOptionalCourse, GetListSelectedCourse, GetSelectCourseRule, PostSelectCourse, PutUnSelectCourse } from '../../assets/API/api'
 import { Toast } from 'mint-ui'
 export default {
-  name: 'CoursesList',
+  name: 'CoursesList2',
   components: {
     FoldingPanel, StudentTab, InfoNull
   },
@@ -110,6 +112,7 @@ export default {
       xxdm: this.xxdm
     }
     GetSelectCourseRule(parmas).then(data => {
+      console.log(data)
       if (data.status === 200) {
         this.courserule = data.data
       }
@@ -190,6 +193,7 @@ export default {
         xh: this.xh
       }
       GetListSelectedCourse(parmas).then(data => {
+        console.log(data)
         this.CourseListVO = data.data
       })
     },
