@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="signbtn rowEndNoWarp">
-          <div @click.stop="signup" :class="{active: datas.remainCount === '0'&&ischoose === false}">{{ischoose? '退选' : '立即报名'}}</div>
+          <div @click.stop="signup(datas)" :class="{active: datas.remainCount === '0'&&ischoose === false}">{{ischoose? '退选' : '立即报名'}}</div>
         </div>
       </div>
       <div v-if="open" class="croyline"></div>
@@ -86,8 +86,8 @@ export default {
       this.updateclick(courseId)
       this.$router.push({path: '/classdetail', query: {courseId: courseId}})
     },
-    signup () {
-      this.$emit('signup', this.data)
+    signup (datas) {
+      this.$emit('signup', datas)
     }
   }
 }

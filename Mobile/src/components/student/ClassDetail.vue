@@ -13,7 +13,7 @@
     </div>
     <!-- 课程详情 -->
     <ul class="detail colStartNoWarpStart">
-      <img src="../../assets/images/tag.png" alt="" class="targ" v-if="coursedetails.state">
+      <img src="../../assets/images/tag.png" alt="" class="targ" v-if="coursedetails.state === '1'">
       <div class="colStartNoWarpStart">
         <h2>授课教师</h2>
         <span>{{coursedetails.skrxm}}</span>
@@ -41,7 +41,7 @@
         <h2>报名时间</h2>
         <span v-for="(time, timeindex) in coursedetails.bmsjlb" :key="timeindex">{{time.kssj}}至{{time.jssj}}</span>
       </div>
-      <div class="signup" @click="signup(coursedetails)" :class="{active: coursedetails.state}">立即报名</div>
+      <div class="signup" @click="signup(coursedetails)" :class="{active: coursedetails.state !== '0'}">立即报名</div>
     </ul>
     <!-- <div class="signup" @click="signup">立即报名</div> -->
   </div>
@@ -80,7 +80,8 @@ export default {
   },
   methods: {
     signup (tag) {
-      if (tag.state) {
+      console.log(tag)
+      if (tag.state !== '0') {
         Toast({
           message: '您已经选过该课哦',
           position: 'middle',
@@ -100,7 +101,7 @@ export default {
         xxdm: this.xxdm
       }
       PostSelectCourse(XkxtXsxk).then(data => {
-        // console.log(data)
+        console.log(data)
         if (data.status === 200) {
           // this.getlistoptionalcourse()
           Toast({
@@ -108,6 +109,7 @@ export default {
             position: 'middle',
             duration: 1000
           })
+          this.getcoursedetails()
         } else if (data.status === -10) {
           Toast({
             message: data.message,

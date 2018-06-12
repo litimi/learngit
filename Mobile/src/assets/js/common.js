@@ -32,9 +32,7 @@ const Load = (option) => {
   }
   option.headers && (headers.headers = option.headers)
   return new Promise((resolve, reject) => {
-    console.log(1)
     Vue.http[option.type](option.url, params, headers).then(response => {
-      console.log(2)
       resolve(response.body)
     }, response => {
       reject(response)

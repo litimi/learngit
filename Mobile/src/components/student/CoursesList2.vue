@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="signbtn rowEndNoWarp">
-            <div @click.stop="signup" :class="{active: datas.remainCount === '0'&&ischoose === false}">{{ischoose? '退选' : '立即报名'}}</div>
+            <div @click.stop="signup(datas, index)" :class="{active: datas.remainCount === '0'&&ischoose === false}">{{ischoose? '退选' : '立即报名'}}</div>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
 import FoldingPanel from '../common/FoldingPanel'
 import InfoNull from '../common/InfoNull'
 import StudentTab from '../common/StudentTab'
-import { GetListOptionalCourse, GetListSelectedCourse, GetSelectCourseRule, PostSelectCourse, PutUnSelectCourse } from '../../assets/API/api'
+import { GetListOptionalCourse, GetListSelectedCourse, GetSelectCourseRule, PostSelectCourse, PutUnSelectCourse, PostCourseClick } from '../../assets/API/api'
 import { Toast } from 'mint-ui'
 export default {
   name: 'CoursesList2',
@@ -135,6 +135,25 @@ export default {
         }
       }
     },
+    // 更新课程点击量
+    updateclick (courseId) {
+      let params = {
+        kcdm: courseId,
+        xh: this.xh,
+        xndm: this.xndm,
+        xqdm: this.xqdm,
+        xxdm: this.xxdm
+      }
+      PostCourseClick(params).then(data => {
+        // console.log(data)
+      })
+    },
+    // 进入详情页
+    enterdetail (courseId) {
+      // console.log(courseId)
+      this.updateclick(courseId)
+      this.$router.push({path: '/classdetail', query: {courseId: courseId}})
+    },
     // 取消
     cancel (show) {
       this.issaerch = show
@@ -198,7 +217,8 @@ export default {
       })
     },
     // 选课
-    postselectcourse (courseId) {
+    postselectcourse (courseId, index) {
+      console.log(courseId)
       let XkxtXsxk = {
         kcdm: courseId,
         xqdm: this.xqdm,
@@ -207,13 +227,17 @@ export default {
         xh: this.xh
       }
       PostSelectCourse(XkxtXsxk).then(data => {
+        console.log(data)
         if (data.status === 200) {
-          // this.getlistoptionalcourse()
+          this.getlistoptionalcourse()
           Toast({
             message: '选课成功',
             position: 'middle',
             duration: 1000
           })
+          if (this.issaerch) {
+            this.searchlist[index].remainCount -= 1
+          }
         } else if (data.status === -10) {
           Toast({
             message: data.message,
@@ -225,7 +249,8 @@ export default {
     },
 
     // 退选课程
-    putunselectcourse (courseId) {
+    putunselectcourse (courseId, index) {
+      // console.log(courseId)
       let XkxtXsxk = {
         kcdm: courseId,
         xqdm: this.xqdm,
@@ -234,6 +259,7 @@ export default {
         xh: this.xh
       }
       PutUnSelectCourse(XkxtXsxk).then(data => {
+        console.log(data)
         if (data.status === 200) {
           this.getlistselectedcourse()
           Toast({
@@ -241,6 +267,10 @@ export default {
             position: 'middle',
             duration: 1000
           })
+          if (this.issaerch) {
+            this.searchlist.splice(index, 1)
+            // [index].remainCount = JSON.parse(this.searchlist[index].remainCount) + 1
+          }
         } else if (data.status < 0) {
           Toast({
             message: data.message,
@@ -251,19 +281,19 @@ export default {
       })
     },
     // 选课/退选按钮
-    signup (data) {
-      if (!this.ischoose) {
-        if (data.remainCount === '0') {
+    signup (datas, index) {
+      if (this.ischoose) {
+        this.putunselectcourse(datas.courseId, index)
+      } else {
+        if (datas.remainCount === '0') {
           Toast({
             message: '课程已选满！',
             position: 'middle',
             duration: 1000
           })
         } else {
-          this.postselectcourse(data.courseId)
+          this.postselectcourse(datas.courseId, index)
         }
-      } else {
-        this.putunselectcourse(data.courseId)
       }
     }
   }
